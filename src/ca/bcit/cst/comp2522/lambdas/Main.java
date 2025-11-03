@@ -30,6 +30,7 @@ public final class Main
     private static final int MIN_GOALS_15 = 15;
     private static final int MIN_GOALS_20 = 20;
 
+
     private Main() { }
 
     /**
@@ -60,22 +61,32 @@ public final class Main
      */
     public static void main(final String[] args)
     {
-        final HockeyTeam team = sampleTeam();
-        final List<HockeyPlayer> roster = team.getRoster();
+        final HockeyTeam team;
+        final Supplier<HockeyPlayer> callUpSupplier;
+        final List<HockeyPlayer> roster;
+        final Predicate<HockeyPlayer> isForward;
+        final Predicate<HockeyPlayer> has20Plus;
+        final Function<HockeyPlayer, String> label;
+        final Consumer<HockeyPlayer> printName;
+        final UnaryOperator<String> toUpper;
+        final Comparator<HockeyPlayer> byGoalsDesc;
+        final EligibilityRule rule;
+
+        team = sampleTeam();
+        roster = team.getRoster();
 
         System.out.println("=== Original Roster ===");
         printRoster(roster);
 
         // 1) Supplier — create a call-up player and add to team
-        final Supplier<HockeyPlayer> callUpSupplier =
-            () -> new HockeyPlayer("Call-Up Player", "F", 2005, 12);
+        callUpSupplier = () -> new HockeyPlayer("Call-Up Player", "F", 2005, 12);
         roster.add(callUpSupplier.get());
         System.out.println("\nAfter Supplier call-up:");
         printRoster(roster);
 
         // 2) Predicate — forwards with 20+ goals
-        final Predicate<HockeyPlayer> isForward = p -> "F".equals(p.getPosition());
-        final Predicate<HockeyPlayer> has20Plus = p -> p.getGoals() >= MIN_GOALS_20;
+        isForward = p -> "F".equals(p.getPosition());
+        has20Plus = p -> p.getGoals() >= MIN_GOALS_20;
 
         System.out.println("\nForwards with 20+ goals:");
         for (final HockeyPlayer p : roster)
@@ -87,8 +98,7 @@ public final class Main
         }
 
         // 3) Function — map player to label string
-        final Function<HockeyPlayer, String> label =
-            p -> p.getName() + " — " + p.getGoals() + "G";
+        label = p -> p.getName() + " — " + p.getGoals() + "G";
         System.out.println("\nPlayer labels (Function):");
         for (final HockeyPlayer p : roster)
         {
@@ -96,7 +106,7 @@ public final class Main
         }
 
         // 4) Consumer — print just the name
-        final Consumer<HockeyPlayer> printName = p -> System.out.println(p.getName());
+        printName = p -> System.out.println(p.getName());
         System.out.println("\nConsumer — player names:");
         for (final HockeyPlayer p : roster)
         {
@@ -104,7 +114,7 @@ public final class Main
         }
 
         // 5) UnaryOperator — uppercase names
-        final UnaryOperator<String> toUpper = String::toUpperCase;
+        toUpper = String::toUpperCase;
         System.out.println("\nUppercase names (UnaryOperator):");
         for (final HockeyPlayer p : roster)
         {
@@ -112,8 +122,7 @@ public final class Main
         }
 
         // 6) Comparator — sort by goals DESC
-        final Comparator<HockeyPlayer> byGoalsDesc =
-            (a, b) -> Integer.compare(b.getGoals(), a.getGoals());
+        byGoalsDesc = (a, b) -> Integer.compare(b.getGoals(), a.getGoals());
         Collections.sort(roster, byGoalsDesc);
         System.out.println("\nSorted by goals (DESC):");
         printRoster(roster);
@@ -127,7 +136,7 @@ public final class Main
         System.out.println("\nTotal team goals: " + totalGoals);
 
         // 8) Custom Functional Interface — EligibilityRule
-        final EligibilityRule rule = (player, minAge, minGoals, currentYear) ->
+        rule = (player, minAge, minGoals, currentYear) ->
         {
             final int age = currentYear - player.getYearOfBirth();
             return age >= minAge && player.getGoals() >= minGoals;
@@ -148,7 +157,9 @@ public final class Main
     /** Creates a small example roster. */
     private static HockeyTeam sampleTeam()
     {
-        final List<HockeyPlayer> players = new ArrayList<>();
+        final List<HockeyPlayer> players;
+
+        players = new ArrayList<>();
         players.add(new HockeyPlayer("Alex Morgan", "F", 2002, 21));
         players.add(new HockeyPlayer("Ben Carter", "D", 1999, 6));
         players.add(new HockeyPlayer("Casey Young", "F", 2004, 28));
