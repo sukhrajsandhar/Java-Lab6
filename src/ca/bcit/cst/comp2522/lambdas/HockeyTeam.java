@@ -1,7 +1,13 @@
-/*
- * Course: COMP 2522
- * Lab: 6
- * File: HockeyTeam.java
+package ca.bcit.cst.comp2522.lambdas;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Models a hockey team.
+ * A HockeyTeam has a name and a roster of HockeyPlayer objects.
+ * The roster can be modified (players added) from the main program.
+ *
  * @author Sukhraj
  * @author Arshia
  * @author Rodrick
@@ -9,19 +15,6 @@
  * @author Indy
  *
  * @version 1.0
- *
- * Date: 2025-10-31
- * Description:
- * Represents a hockey team containing a name and a roster of players.
- */
-
-package ca.bcit.cst.comp2522.lambdas;
-
-import java.util.*;
-
-/**
- * Models a hockey team that holds multiple players.
- * Provides accessors and mutators for the team roster.
  */
 public class HockeyTeam
 {
@@ -29,51 +22,41 @@ public class HockeyTeam
     private final List<HockeyPlayer> roster;
 
     /**
-     * Constructs a hockey team.
-     * @param name name of the team
+     * Constructs a HockeyTeam with a given name and an empty roster.
+     *
+     * @param name the team's name
      */
-    public HockeyTeam(String name)
+    public HockeyTeam(final String name)
     {
         this.name = name;
         this.roster = new ArrayList<>();
     }
 
-    /** @return team name */
-    public String getName()
+    /**
+     * Constructs a HockeyTeam with an existing roster.
+     *
+     * @param name team name
+     * @param roster list of HockeyPlayer objects
+     */
+    public HockeyTeam(final String name, final List<HockeyPlayer> roster)
     {
-        return name;
+        this.name = name;
+        this.roster = roster;
     }
 
-    /** @return list of players */
-    public List<HockeyPlayer> getRoster()
-    {
-        return roster;
-    }
+    /** @return the team name */
+    public String getName() { return name; }
+
+    /** @return the team roster */
+    public List<HockeyPlayer> getRoster() { return roster; }
 
     /**
-     * Adds a player to the roster.
+     * Adds a player to the team roster.
+     *
      * @param player the player to add
      */
     public void addPlayer(final HockeyPlayer player)
     {
         roster.add(player);
-    }
-
-    /** @return formatted string for entire roster */
-    @Override
-    public String toString()
-    {
-        final StringBuilder sb;
-
-        sb = new StringBuilder(name + " Roster:\n");
-        for (final HockeyPlayer p : roster)
-        {
-            sb.append(" - ").append(p).append("\n");
-        }
-
-        final String result;
-        result = sb.toString();
-
-        return result;
     }
 }
