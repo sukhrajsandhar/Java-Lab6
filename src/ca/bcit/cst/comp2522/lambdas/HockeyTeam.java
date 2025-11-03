@@ -2,7 +2,14 @@
  * Course: COMP 2522
  * Lab: 6
  * File: HockeyTeam.java
- * Author: Sukhraj Sandhar
+ * @author Sukhraj
+ * @author Arshia
+ * @author Rodrick
+ * @author Abdullah
+ * @author Indy
+ *
+ * @version 1.0
+ *
  * Date: 2025-10-31
  * Description:
  * Represents a hockey team containing a name and a roster of players.
@@ -47,7 +54,7 @@ public class HockeyTeam
      * Adds a player to the roster.
      * @param player the player to add
      */
-    public void addPlayer(HockeyPlayer player)
+    public void addPlayer(final HockeyPlayer player)
     {
         roster.add(player);
     }
@@ -56,11 +63,17 @@ public class HockeyTeam
     @Override
     public String toString()
     {
-        StringBuilder sb = new StringBuilder(name + " Roster:\n");
-        for (HockeyPlayer p : roster)
+        final StringBuilder sb;
+
+        sb = new StringBuilder(name + " Roster:\n");
+        for (final HockeyPlayer p : roster)
         {
             sb.append(" - ").append(p).append("\n");
         }
-        return sb.toString();
+
+        final String result;
+        result = sb.toString();
+
+        return result;
     }
 }

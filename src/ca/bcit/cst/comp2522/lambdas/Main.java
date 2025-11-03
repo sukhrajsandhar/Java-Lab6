@@ -2,7 +2,15 @@
  * Course: COMP 2522
  * Lab: 6
  * File: Main.java
- * Author: Sukhraj Sandhar
+ *
+ * @author Sukhraj
+ * @author Arshia
+ * @author Rodrick
+ * @author Abdullah
+ * @author Indy
+ *
+ * @version 1.0
+ *
  * Date: 2025-10-31
  * Description:
  * Demonstrates the use of Java lambda expressions and functional interfaces.

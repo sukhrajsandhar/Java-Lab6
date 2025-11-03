@@ -1,11 +1,19 @@
 /*
  * Course: COMP 2522
- * Lab: 6
- * File: HockeyPlayer.java
- * Author: Sukhraj Sandhar,
- * Date: 2025-10-31
  * Description:
  * Represents a hockey player with a name, position, birth year, and goal count.
+ * Lab: 6
+ * File: HockeyPlayer.java
+ *
+ * @author Sukhraj
+ * @author Arshia
+ * @author Rodrick
+ * @author Abdullah
+ * @author Indy
+ *
+ * @version 1.0
+ *
+ * Date: 2025-10-31
  */
 
 package ca.bcit.cst.comp2522.lambdas;
@@ -29,7 +37,10 @@ public class HockeyPlayer
      * @param yearOfBirth player's birth year
      * @param goals player's goal count
      */
-    public HockeyPlayer(String name, String position, int yearOfBirth, int goals)
+    public HockeyPlayer(String name,
+                        String position,
+                        int yearOfBirth,
+                        int goals)
     {
         this.name = name;
         this.position = position;
@@ -71,6 +82,9 @@ public class HockeyPlayer
     @Override
     public String toString()
     {
-        return name + " (" + position + ") — " + goals + "G";
+        final String details;
+        details = name + " (" + position + ") — " + goals + "G";
+
+        return details;
     }
 }
