@@ -37,20 +37,35 @@ public class HockeyPlayer
     }
 
     /** @return player's name */
-    public String getName() { return name; }
+    public String getName()
+    {
+        return name;
+    }
 
     /** @return player's position */
-    public String getPosition() { return position; }
+    public String getPosition()
+    {
+        return position;
+    }
 
     /** @return player's year of birth */
-    public int getYearOfBirth() { return yearOfBirth; }
+    public int getYearOfBirth()
+    {
+        return yearOfBirth;
+    }
 
     /** @return player's goals */
-    public int getGoals() { return goals; }
+    public int getGoals()
+    {
+        return goals;
+    }
 
     @Override
     public String toString()
     {
-        return name + " — " + position + " — " + yearOfBirth + " — " + goals + "G";
+        return name + " — " +
+               position + " — " +
+               yearOfBirth + " — " +
+               goals + "G";
     }
 }

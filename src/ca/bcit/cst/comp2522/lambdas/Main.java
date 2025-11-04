@@ -26,7 +26,7 @@ import java.util.function.UnaryOperator;
 public final class Main
 {
     private static final int CURRENT_YEAR = 2025;
-    private static final int MIN_AGE = 20;
+    private static final int MIN_AGE_YEAR = 20;
     private static final int MIN_GOALS_15 = 15;
     private static final int MIN_GOALS_20 = 20;
 
@@ -115,7 +115,7 @@ public final class Main
 
         // 5) UnaryOperator — uppercase names
         toUpper = String::toUpperCase;
-        System.out.println("\nUppercase names (UnaryOperator):");
+        System.out.println("\nUppercase names:");
         for (final HockeyPlayer p : roster)
         {
             System.out.println(toUpper.apply(p.getName()));
@@ -145,7 +145,7 @@ public final class Main
         System.out.println("\nEligible players (age ≥ 20 and goals ≥ 15):");
         for (final HockeyPlayer p : roster)
         {
-            if (rule.test(p, MIN_AGE, MIN_GOALS_15, CURRENT_YEAR))
+            if (rule.test(p, MIN_AGE_YEAR, MIN_GOALS_15, CURRENT_YEAR))
             {
                 System.out.println(p.getName()
                                    + " — age " + (CURRENT_YEAR - p.getYearOfBirth())
@@ -158,14 +158,15 @@ public final class Main
     private static HockeyTeam sampleTeam()
     {
         final List<HockeyPlayer> players;
-
         players = new ArrayList<>();
+
         players.add(new HockeyPlayer("Alex Morgan", "F", 2002, 21));
         players.add(new HockeyPlayer("Ben Carter", "D", 1999, 6));
         players.add(new HockeyPlayer("Casey Young", "F", 2004, 28));
         players.add(new HockeyPlayer("Drew Singh", "G", 2000, 0));
         players.add(new HockeyPlayer("Eva Chen", "D", 2001, 5));
         players.add(new HockeyPlayer("Farah Ali", "F", 2003, 19));
+
         return new HockeyTeam("BCIT Blizzards", players);
     }
 
