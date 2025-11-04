@@ -15,11 +15,11 @@ import java.util.function.UnaryOperator;
  * Demonstrates Supplier, Predicate, Function, Consumer, UnaryOperator,
  * Comparator, aggregation, and a custom functional interface.
  *
- * @author Sukhraj
- * @author Arshia
- * @author Rodrick
- * @author Abdullah
- * @author Indy
+ * @author Sukhraj Sandhar
+ * @author Arshia Adamian
+ * @author Rodrick Vizigro
+ * @author Indy Grewal
+ * @author Abdullah Alasmy
  *
  * @version 1.0
  */

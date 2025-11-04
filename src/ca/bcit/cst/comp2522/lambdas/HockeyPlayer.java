@@ -4,11 +4,11 @@ package ca.bcit.cst.comp2522.lambdas;
  * Models a single hockey player.
  * Each player has a name, position ("F", "D", or "G"), year of birth, and goal count.
  *
- * @author Sukhraj
- * @author Arshia
- * @author Rodrick
- * @author Abdullah
- * @author Indy
+ * @author Sukhraj Sandhar
+ * @author Arshia Adamian
+ * @author Rodrick Vizigro
+ * @author Indy Grewal
+ * @author Abdullah Alasmy
  *
  * @version 1.0
  */

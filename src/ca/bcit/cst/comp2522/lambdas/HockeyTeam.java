@@ -8,11 +8,11 @@ import java.util.List;
  * A HockeyTeam has a name and a roster of HockeyPlayer objects.
  * The roster can be modified (players added) from the main program.
  *
- * @author Sukhraj
- * @author Arshia
- * @author Rodrick
- * @author Abdullah
- * @author Indy
+ * @author Sukhraj Sandhar
+ * @author Arshia Adamian
+ * @author Rodrick Vizigro
+ * @author Indy Grewal
+ * @author Abdullah Alasmy
  *
  * @version 1.0
  */
