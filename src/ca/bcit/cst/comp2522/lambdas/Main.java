@@ -25,10 +25,12 @@ import java.util.function.UnaryOperator;
  */
 public final class Main
 {
-    private static final int CURRENT_YEAR = 2025;
-    private static final int MIN_AGE_YEAR = 20;
-    private static final int MIN_GOALS_15 = 15;
-    private static final int MIN_GOALS_20 = 20;
+    private static final int CURRENT_YEAR  = 2025;
+    private static final int MIN_AGE_YEAR  = 20;
+    private static final int MIN_GOALS_15  = 15;
+    private static final int MIN_GOALS     = 20;
+    private static final int INITIAL_GOALS = 0;
+
 
 
     private Main() { }
@@ -43,13 +45,13 @@ public final class Main
          * Tests whether a player meets minimum age and goal requirements.
          *
          * @param player the player to test
-         * @param minAge minimum required age
+         * @param minAgeYear minimum required age
          * @param minGoals minimum required goals
          * @param currentYear current year to compute age
          * @return true if eligible, otherwise false
          */
         boolean test(final HockeyPlayer player,
-                     final int minAge,
+                     final int minAgeYear,
                      final int minGoals,
                      final int currentYear);
     }
@@ -71,6 +73,7 @@ public final class Main
         final UnaryOperator<String> toUpper;
         final Comparator<HockeyPlayer> byGoalsDesc;
         final EligibilityRule rule;
+        int totalGoals;
 
         team = sampleTeam();
         roster = team.getRoster();
@@ -78,17 +81,16 @@ public final class Main
         System.out.println("=== Original Roster ===");
         printRoster(roster);
 
-        // 1) Supplier — create a call-up player and add to team
         callUpSupplier = () -> new HockeyPlayer("Call-Up Player", "F", 2005, 12);
         roster.add(callUpSupplier.get());
         System.out.println("\nAfter Supplier call-up:");
         printRoster(roster);
 
-        // 2) Predicate — forwards with 20+ goals
         isForward = p -> "F".equals(p.getPosition());
-        has20Plus = p -> p.getGoals() >= MIN_GOALS_20;
+        has20Plus = p -> p.getGoals() >= MIN_GOALS;
 
         System.out.println("\nForwards with 20+ goals:");
+
         for (final HockeyPlayer p : roster)
         {
             if (isForward.and(has20Plus).test(p))
@@ -97,55 +99,59 @@ public final class Main
             }
         }
 
-        // 3) Function — map player to label string
         label = p -> p.getName() + " — " + p.getGoals() + "G";
         System.out.println("\nPlayer labels (Function):");
+
         for (final HockeyPlayer p : roster)
         {
             System.out.println(label.apply(p));
         }
 
-        // 4) Consumer — print just the name
         printName = p -> System.out.println(p.getName());
         System.out.println("\nConsumer — player names:");
+
         for (final HockeyPlayer p : roster)
         {
             printName.accept(p);
         }
 
-        // 5) UnaryOperator — uppercase names
         toUpper = String::toUpperCase;
         System.out.println("\nUppercase names:");
+
         for (final HockeyPlayer p : roster)
         {
             System.out.println(toUpper.apply(p.getName()));
         }
 
-        // 6) Comparator — sort by goals DESC
         byGoalsDesc = (a, b) -> Integer.compare(b.getGoals(), a.getGoals());
         Collections.sort(roster, byGoalsDesc);
         System.out.println("\nSorted by goals (DESC):");
         printRoster(roster);
 
-        // 7) Aggregation — total goals
-        int totalGoals = 0;
+
+        totalGoals = INITIAL_GOALS;
+
         for (final HockeyPlayer p : roster)
         {
             totalGoals += p.getGoals();
         }
         System.out.println("\nTotal team goals: " + totalGoals);
 
-        // 8) Custom Functional Interface — EligibilityRule
-        rule = (player, minAge, minGoals, currentYear) ->
+        rule = (player, minAgeYear, minGoals, currentYear) ->
         {
-            final int age = currentYear - player.getYearOfBirth();
-            return age >= minAge && player.getGoals() >= minGoals;
+            final int age;
+
+            age = currentYear - player.getYearOfBirth();
+            return age >= minAgeYear && player.getGoals() >= minGoals;
         };
 
         System.out.println("\nEligible players (age ≥ 20 and goals ≥ 15):");
         for (final HockeyPlayer p : roster)
         {
-            if (rule.test(p, MIN_AGE_YEAR, MIN_GOALS_15, CURRENT_YEAR))
+            boolean eligiblePlayerTest;
+            eligiblePlayerTest = rule.test(p, MIN_AGE_YEAR, MIN_GOALS_15, CURRENT_YEAR);
+
+            if (eligiblePlayerTest)
             {
                 System.out.println(p.getName()
                                    + " — age " + (CURRENT_YEAR - p.getYearOfBirth())
